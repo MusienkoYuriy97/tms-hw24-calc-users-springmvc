@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<div th:include="_header.html"></div>
+
+<form action="/reg" method="post">
+    <div class="mb-3 row">
+        <label for="username" class="form-label">Username</label>
+        <div class="col-sm-6">
+        <input type="text" class="form-control" id="username" aria-describedby="emailHelp" name = "username">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="fname" class="form-label">First Name</label>
+        <div class="col-sm-6">
+        <input type="text" class="form-control" id="fname" aria-describedby="emailHelp" name = "fname">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="lname" class="form-label">Last Name</label>
+        <div class="col-sm-6">
+        <input type="text" class="form-control" id="lname" aria-describedby="emailHelp" name = "lname">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="age" class="form-label">Age</label>
+        <div class="col-sm-6">
+        <input type="number" class="form-control" id="age" aria-describedby="emailHelp" name = "age">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="password" class="form-label">Password</label>
+        <div class="col-sm-6">
+        <input type="password" class="form-control" id="password" name="password">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<p th:text="${message}"></p>
+</body>
+</html>

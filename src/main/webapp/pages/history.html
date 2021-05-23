@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+</head>
+<body>
+<div th:include="_header.html"></div>
+<tr th:each="operation : ${operations}">
+    <td th:text="${operation}"></td>
+    <br>
+</tr>
+</body>
+</html>
