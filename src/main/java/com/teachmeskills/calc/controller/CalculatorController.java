@@ -24,9 +24,6 @@ public class CalculatorController {
                            @RequestParam(required = false,defaultValue = "0") int command,
                            Model model,
                            HttpSession session) {
-        if (session.getAttribute("user") == null){
-            return "error";
-        }
 
         double result = 0;
         Action action = null;

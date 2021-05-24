@@ -16,11 +16,7 @@ public class RegistrationController {
     UserDao userDao;
 
     @GetMapping
-    public String viewPage(Model model,
-                           HttpSession session){
-        if (session.getAttribute("user") != null){
-            return "error";
-        }
+    public String viewPage(Model model){
         model.addAttribute("regUser",new User());
         return "registration";
     }
@@ -28,7 +24,6 @@ public class RegistrationController {
     @PostMapping
     public String viewPage(@ModelAttribute User regUser,
                            Model model){
-
         if (regUser.getUsername() == null || regUser.getUsername().trim().equals("") ||
                 regUser.getFname() == null || regUser.getFname().trim().equals("") ||
                 regUser.getLname() == null || regUser.getLname().trim().equals("") ||
@@ -45,6 +40,6 @@ public class RegistrationController {
         }
 
         userDao.save(regUser);
-        return "authorization";
+        return "redirect:auth";
     }
 }

@@ -16,11 +16,8 @@ public class LogOutController {
 
     @GetMapping
     public String viewPage(HttpSession session){
-        if (session.getAttribute("user") == null){
-            return "error";
-        }
         operationDao.removeAll();
         session.invalidate();
-        return "authorization";
+        return "redirect:auth";
     }
 }
