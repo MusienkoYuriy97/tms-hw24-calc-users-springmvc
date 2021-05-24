@@ -15,9 +15,12 @@ public class LogOutController {
     OperationDao operationDao;
 
     @GetMapping
-    public String viewPage(HttpSession httpSession){
+    public String viewPage(HttpSession session){
+        if (session.getAttribute("user") == null){
+            return "error";
+        }
         operationDao.removeAll();
-        httpSession.invalidate();
-        return "registration";
+        session.invalidate();
+        return "authorization";
     }
 }

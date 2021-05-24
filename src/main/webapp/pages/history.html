@@ -8,8 +8,13 @@
 <body>
 <div th:include="_header.html"></div>
 <tr th:each="operation : ${operations}">
-    <td th:text="${operation}"></td>
+    X: <td th:text="${operation.getX()}"></td>
+    Operation: <td th:text="${operation.getOperationType()}"></td>
+    Y: <td th:text="${operation.getY()}"></td>
+    Result: <td th:text="${operation.getResult()}"></td>
     <br>
+    <br>
+
 </tr>
 </body>
 </html>

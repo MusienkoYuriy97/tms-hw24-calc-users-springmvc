@@ -19,9 +19,13 @@ public class AuthorizationController {
     public String viewPage(String username,
                            String password,
                            Model model,
-                           HttpSession httpSession){
+                           HttpSession session){
+        if (session.getAttribute("user") != null){
+            return "error";
+        }
+
         if (userDao.contains(username,password)){
-            httpSession.setAttribute("user", userDao.getUserByUsername(username));
+            session.setAttribute("user", userDao.getUserByUsername(username));
             return "calculator";
         }
 

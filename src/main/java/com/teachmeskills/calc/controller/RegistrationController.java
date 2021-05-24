@@ -5,46 +5,46 @@ import com.teachmeskills.calc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/reg")
+@RequestMapping(value = "/reg", name = "RegistrationController")
 public class RegistrationController {
     @Autowired
     UserDao userDao;
 
     @GetMapping
-    public String viewPage(){
+    public String viewPage(Model model,
+                           HttpSession session){
+        if (session.getAttribute("user") != null){
+            return "error";
+        }
+        model.addAttribute("regUser",new User());
         return "registration";
     }
 
     @PostMapping
-    public String viewPage(String username,
-                           String fname,
-                           String lname,
-                           @RequestParam(required = false,defaultValue = "0") int age,
-                           String password,
+    public String viewPage(@ModelAttribute User regUser,
                            Model model){
-        if (username == null || username.trim().equals("") ||
-                fname == null || fname.trim().equals("") ||
-                lname == null || lname.trim().equals("") ||
-                age < 10 ||
-                password == null || password.trim().equals("")
+
+        if (regUser.getUsername() == null || regUser.getUsername().trim().equals("") ||
+                regUser.getFname() == null || regUser.getFname().trim().equals("") ||
+                regUser.getLname() == null || regUser.getLname().trim().equals("") ||
+                regUser.getAge() < 10 ||
+                regUser.getPassword() == null || regUser.getPassword().trim().equals("")
         ){
             model.addAttribute("message","Enter all field");
             return "registration";
         }
 
-        if (userDao.contains(username)){
+        if (userDao.contains(regUser.getUsername())){
             model.addAttribute("message","User with the same username already exist");
             return "registration";
         }
 
-        User user = new User(0,username,fname,lname,age,password);
-        userDao.save(user);
+        userDao.save(regUser);
         return "authorization";
     }
 }

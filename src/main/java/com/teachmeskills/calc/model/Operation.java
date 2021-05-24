@@ -12,4 +12,5 @@ public class Operation {
     private double y;
     private double result;
     private String operationType;
+    private User user;
 }

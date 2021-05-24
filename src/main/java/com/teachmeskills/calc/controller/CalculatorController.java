@@ -1,5 +1,6 @@
 package com.teachmeskills.calc.controller;
 
+import com.teachmeskills.calc.model.User;
 import com.teachmeskills.calc.model.calc.Action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -20,12 +22,17 @@ public class CalculatorController {
     public String viewPage(@RequestParam(required = false,defaultValue = "0") double x,
                            @RequestParam(required = false,defaultValue = "0") double y,
                            @RequestParam(required = false,defaultValue = "0") int command,
-                           Model model){
+                           Model model,
+                           HttpSession session) {
+        if (session.getAttribute("user") == null){
+            return "error";
+        }
+
         double result = 0;
         Action action = null;
         if (calcAction.containsKey(command)){
             action = calcAction.get(command);
-            result = action.calculate(x,y);
+            result = action.calculate(x,y, (User) session.getAttribute("user"));
         }
         model.addAttribute("result",result);
         model.addAttribute("action",action);
